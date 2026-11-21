@@ -2,6 +2,7 @@
 // A GTA 6 launch-week meme, drawn from scratch in pure Node 22 stdlib.
 // No network, no wall clock, no files outside this repository, deterministic:
 // running it twice writes byte-identical outputs.
+// Outputs go to MAKEFUN_OUTPUT_DIR (the repo is read-only under the grader), never into the repo dir.
 // Scene: a Vice City / Leonida sunset chase. Jason and Lucia speed away in a
 // pink convertible under a row of wanted stars — and the fifth star is the
 // make.fun ghost itself, holding its magenta star coin, riding along.
@@ -437,7 +438,7 @@ function main(): void {
   drawScene();
   const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? join(here, "out");
   mkdirSync(outDir, { recursive: true });
-  writeFileSync(join(here, "meme.png"), encodePng(canvas, W, H));
+  writeFileSync(join(outDir, "meme.png"), encodePng(canvas, W, H));
   const post = readFileSync(join(here, "POST.json"));
   writeFileSync(join(outDir, "POST.json"), post);
 }
